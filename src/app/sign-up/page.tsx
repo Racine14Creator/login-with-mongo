@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,8 +10,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import React from "react";
+
+import { FaGithub, FaGoogle } from "react-icons/fa";
 
 export default function SignUpPage() {
   return (
@@ -41,12 +46,21 @@ export default function SignUpPage() {
               <Input id='password' type='password' placeholder='Password' />
               <p className='text-red-500 text-thin text-sm'>error here...</p>
             </div>
+            <div className='flex flex-col gap-2'>
+              <Label htmlFor='confirmPasword'>Confirm Password</Label>
+              <Input
+                id='confirmpassword'
+                type='password'
+                placeholder='ConfirmPassword'
+              />
+              <p className='text-red-500 text-thin text-sm'>error here...</p>
+            </div>
             <div className='w-full mt-5'>
               <Button type='submit' className='w-full bg-red-500 text-white'>
                 Sign Up
               </Button>
             </div>
-            <div className='mt-5'>
+            <div className='my-5'>
               <p className='font-light text-md text-left'>
                 Already have an{" "}
                 <Link href='/sign-in' className='text-blue-500 underline'>
@@ -55,6 +69,27 @@ export default function SignUpPage() {
               </p>
             </div>
           </form>
+          <Separator />
+          <div className='flex flex-row my-2 justify-evenly mx-auto items-center'>
+            <Button
+              onClick={() => {}}
+              className='bg-slate-300 duration-100 ease-in-out hover:bg-slate-400 hover:scale-110'
+              variant='outline'
+              disabled={false}
+              size='lg'
+            >
+              <FaGithub className='size-8 left-2.5 top-2.5' />
+            </Button>
+            <Button
+              onClick={() => {}}
+              className='bg-slate-300 duration-100 ease-in-out hover:bg-slate-400 hover:scale-110'
+              variant='outline'
+              disabled={false}
+              size='lg'
+            >
+              <FaGoogle className='size-8 left-2.5 top-2.5' />
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

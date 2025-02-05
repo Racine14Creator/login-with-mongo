@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,8 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import React from "react";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 
 export default function SignInPage() {
   return (
@@ -42,13 +46,34 @@ export default function SignInPage() {
             </div>
             <div className='mt-5'>
               <p className='font-light text-md text-left'>
-                Already have an{" "}
+                I don&apos;t have an{" "}
                 <Link href='/sign-up' className='text-blue-500 underline'>
                   account!
                 </Link>
               </p>
             </div>
           </form>
+          <Separator />
+          <div className='flex flex-row my-2 justify-evenly mx-auto items-center'>
+            <Button
+              onClick={() => {}}
+              className='bg-slate-300 duration-100 ease-in-out hover:bg-slate-400 hover:scale-110'
+              variant='outline'
+              disabled={false}
+              size='lg'
+            >
+              <FaGithub className='size-8 left-2.5 top-2.5' />
+            </Button>
+            <Button
+              onClick={() => {}}
+              className='bg-slate-300 duration-100 ease-in-out hover:bg-slate-400 hover:scale-110'
+              variant='outline'
+              disabled={false}
+              size='lg'
+            >
+              <FaGoogle className='size-8 left-2.5 top-2.5' />
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>
