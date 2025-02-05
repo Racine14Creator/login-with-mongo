@@ -17,7 +17,7 @@ async function connectToDatabase() {
     bufferCommands: false,
   };
 
-  await mongoose.connect(MONGODB_URI, opt);
+  await mongoose.connect(MONGODB_URI!, opt);
   return mongoose;
 }
 
