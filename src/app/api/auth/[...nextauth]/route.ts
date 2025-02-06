@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import Github from "next-auth/providers/github";
 import User from "@/models/user.model";
 import connectToDatabase from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
@@ -9,6 +10,10 @@ const handlers = NextAuth({
     strategy: "jwt",
   },
   providers: [
+    Github({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -41,6 +46,21 @@ const handlers = NextAuth({
     }),
   ],
   callbacks: {
+    async signIn({ account, profile }) {
+      if (account?.provider === "github") {
+        await connectToDatabase();
+        const existngUser = await User.findOne({ email: profile?.email });
+
+        if (!existngUser) {
+          await User.create({
+            email: profile?.email,
+            name: profile?.name,
+            image: profile?.image,
+          });
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;

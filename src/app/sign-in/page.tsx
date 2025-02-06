@@ -47,6 +47,14 @@ export default function SignInPage() {
       setPending(false);
     }
   };
+
+  const handleProvider = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    value: "github" | "google"
+  ) => {
+    event.preventDefault();
+    signIn(value, { callbackUrl: "/" });
+  };
   return (
     <div className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
       <Card className='max-w-sm mx-auto'>
@@ -105,6 +113,7 @@ export default function SignInPage() {
           <Separator />
           <div className='flex flex-row my-2 justify-evenly mx-auto items-center'>
             <Button
+              onClick={(e) => handleProvider(e, "github")}
               className='bg-slate-300 duration-100 ease-in-out hover:bg-slate-400 hover:scale-110'
               variant='outline'
               disabled={false}
