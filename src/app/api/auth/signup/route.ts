@@ -38,7 +38,10 @@ export async function POST(req: Request) {
   }
 
   if (password !== confirmPassword) {
-    return NextResponse.json({ message: "Passwords do not match" });
+    return NextResponse.json({
+      message: "Passwords do not match",
+      status: 400,
+    });
   }
 
   if (password.length < 6) {
@@ -59,7 +62,7 @@ export async function POST(req: Request) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const data = await User.create({
-      fullname: name,
+      name,
       email,
       password: hashedPassword,
     });

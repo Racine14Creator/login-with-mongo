@@ -55,7 +55,7 @@ export default function SignUpPage() {
 
     const response = await res.json();
 
-    if (response.ok) {
+    if (response.status === 200) {
       console.log(response.message);
 
       setPending(false);
