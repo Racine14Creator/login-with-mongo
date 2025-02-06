@@ -5,7 +5,10 @@ import User from "@/models/user.model";
 import connectToDatabase from "@/lib/mongodb";
 
 export async function POST(req: Request) {
-  const { fullname, email, password, confirmPassword } = await req.json();
+  const body = await req.json();
+  const { name, email, password, confirmPassword } = body.form;
+  // const { name, email, password, confirmPassword } = await req.json();
+  // return NextResponse.json({ message: "Data backend", data: await req.json() });
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -16,11 +19,22 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Invalid email", status: 400 });
   }
 
-  if (!fullname || !email || !password || !confirmPassword) {
+  if (!name) {
     return NextResponse.json({
-      message: "All fields are required",
+      message: "Name is required backend",
       status: 400,
     });
+  }
+
+  if (!email) {
+    return NextResponse.json({ message: "Email is required", status: 400 });
+  }
+
+  if (!password) {
+    return NextResponse.json({ message: "Password is required", status: 400 });
+  }
+  if (!password) {
+    return NextResponse.json({ message: "Password is required", status: 400 });
   }
 
   if (password !== confirmPassword) {
@@ -45,7 +59,7 @@ export async function POST(req: Request) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const data = await User.create({
-      fullname,
+      fullname: name,
       email,
       password: hashedPassword,
     });

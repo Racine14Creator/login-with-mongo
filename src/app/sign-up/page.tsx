@@ -37,6 +37,8 @@ export default function SignUpPage() {
     const { name, email, password, confirmPassword } = form;
     setPending(true);
 
+    console.log(form);
+
     if (!name || !email || !password || !confirmPassword) {
       setError("All fields are required");
       setPending(false);
@@ -48,23 +50,28 @@ export default function SignUpPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ form }),
     });
 
-    const data = await res.json();
+    const response = await res.json();
 
-    if (res.ok) {
-      console.log("Success");
+    if (response.ok) {
+      console.log(response.message);
+
       setPending(false);
 
-      toast.success(data.message);
+      toast.success(response.message);
+
       router.push("/sign-in");
-    } else if (res.status === 400) {
-      setError(data.message);
+    } else if (response.status === 400 || response.status === 401) {
+      setError(response.message);
+
       setPending(false);
-    } else if (data.status === 500) {
+
+      toast.error(response.message);
+    } else if (response.status === 500) {
       setPending(false);
-      toast.error(data.message);
+      toast.error(response.message);
       console.log("Failed");
     }
   };
