@@ -50,11 +50,10 @@ const handlers = NextAuth({
     },
     async session({ session, token }) {
       if (token) {
-        return {
-          ...session,
+        session.user = {
           email: token.email,
           name: token.name,
-          image: token.image,
+          image: token.picture,
         };
       }
       return session;
